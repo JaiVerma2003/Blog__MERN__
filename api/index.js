@@ -16,7 +16,7 @@ const uploadMiddleware = multer({ dest: "uploads/" });
 const fs = require("fs");
 
 const salt = bcrypt.genSaltSync(10);
-const secret = "sakdfjbagiuwefgikebiGIAWGDFIU";
+const secret = process.env.JWT_SECRET;
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
@@ -25,7 +25,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 mongoose
   .connect(
-    "mongodb+srv://jaivermaco21a437:ytBfYq3kegBHehwP@cluster0.ryftx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    process.env.MONGO_URL,
     clientOptions
   )
   .then(() => console.log("Connected to MongoDB"))
